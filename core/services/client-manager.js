@@ -10,7 +10,7 @@ var log = log4js.getLogger('cps:ClientManager');
 var Sequelize = require('sequelize');
 
 var proto = (module.exports = function () {
-    function ClientManager() {}
+    function ClientManager() { }
     ClientManager.__proto__ = proto;
     return ClientManager;
 });
@@ -64,7 +64,7 @@ proto.updateCheckFromCache = function (
                     log.debug('updateCheckFromCache read from catch');
                     var obj = JSON.parse(data);
                     return obj;
-                } catch (e) {}
+                } catch (e) { }
             }
             return self
                 .updateCheck(deploymentKey, appVersion, label, packageHash, clientUniqueId)
@@ -73,7 +73,7 @@ proto.updateCheckFromCache = function (
                         log.debug('updateCheckFromCache read from db');
                         var strRs = JSON.stringify(rs);
                         client.setex(redisCacheKey, EXPIRED, strRs);
-                    } catch (e) {}
+                    } catch (e) { }
                     return rs;
                 });
         })
@@ -287,8 +287,8 @@ proto.reportStatusDeploy = function (deploymentKey, label, clientUniqueId, other
             status = constConfig.DEPLOYMENT_FAILED;
         }
         var packageId = packages.id;
-        var previous_deployment_key = _.get(others, 'previousDeploymentKey');
-        var previous_label = _.get(others, 'previousLabelOrAppVersion');
+        var previous_deployment_key = _.get(others, 'previous_deployment_key');
+        var previous_label = _.get(others, 'previous_label_or_app_version');
         if (status > 0) {
             return Promise.all([
                 models.LogReportDeploy.create({

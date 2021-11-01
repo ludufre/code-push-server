@@ -9,7 +9,7 @@ var log4js = require('log4js');
 var log = log4js.getLogger('cps:deployments');
 
 var proto = (module.exports = function () {
-    function Deployments() {}
+    function Deployments() { }
     Deployments.__proto__ = proto;
     return Deployments;
 });
@@ -146,9 +146,9 @@ proto.formatPackage = function (packageVersion) {
     }
     return {
         description: _.get(packageVersion, 'packageInfo.description'),
-        isDisabled: false,
+        isDisabled: _.get(packageVersion, "packageInfo.is_disabled") == 1 ? true : false,
         isMandatory: _.get(packageVersion, 'packageInfo.is_mandatory') == 1 ? true : false,
-        rollout: 100,
+        rollout: _.get(packageVersion, "packageInfo.rollout"),
         appVersion: _.get(packageVersion, 'deploymentsVersions.app_version'),
         packageHash: _.get(packageVersion, 'packageInfo.package_hash'),
         blobUrl: common.getBlobDownloadUrl(_.get(packageVersion, 'packageInfo.blob_url')),

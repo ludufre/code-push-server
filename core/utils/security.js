@@ -204,7 +204,7 @@ security.calcAllFileSha256 = function (directoryPath) {
                             var relativePath = path.relative(directoryPath, key);
                             var matchresult = relativePath.match(/(\/|\\).*/);
                             if (matchresult) {
-                                relativePath = path.join('CodePush', matchresult[0]);
+                                relativePath = path.join('www', matchresult[0]);
                             }
                             relativePath = slash(relativePath);
                             data[relativePath] = value;
